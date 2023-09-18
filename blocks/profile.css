@@ -1,9 +1,9 @@
-.Profile {
+.profile {
   display: flex;
   padding-top: 40px;
 }
 
-.Profile__info {
+.profile__info {
   display: grid;
   grid-template-areas:
     "title button"
@@ -14,7 +14,7 @@
   width: 415px;
 }
 
-.Profile__edit-button {
+.profile__edit-button {
   background: transparent url(../images/Edit-Icon.svg) center no-repeat;
   height: 24px;
   width: 24px;
@@ -24,11 +24,11 @@
   border: solid 1px;
 }
 
-.Profile__edit-button:hover {
+.profile__edit-button:hover {
   opacity: 60%;
 }
 
-.Profile__add-button {
+.profile__add-button {
   background: transparent url("../images/Add-Icon.svg") center no-repeat;
   margin-top: 10px;
   width: 150px;
@@ -39,11 +39,11 @@
   border: solid 2px;
 }
 
-.Profile__add-button:hover {
+.profile__add-button:hover {
   opacity: 60%;
 }
 
-.Profile__title {
+.profile__title {
   font-family: Inter;
   font-size: 42px;
   font-weight: 500;
@@ -57,7 +57,7 @@
   overflow: hidden;
 }
 
-.Profile__description {
+.profile__description {
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -69,7 +69,7 @@
   overflow: hidden;
 }
 
-.Profile__image {
+.profile__image {
   height: 120px;
   width: 120px;
   border-radius: 50%;
@@ -79,7 +79,7 @@
 }
 
 @media screen and (max-width: 800px) {
-  .Profile {
+  .profile {
     /* background-color: pink; */
     flex-direction: column;
     align-items: center;
@@ -87,7 +87,7 @@
     height: 286px;
   }
 
-  .Profile__info {
+  .profile__info {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -95,10 +95,10 @@
     padding-left: 62px;
     padding-right: 62px;
     height: 50px;
-    width: 282px;
+    max-width: 282px;
   }
 
-  .Profile__description {
+  .profile__description {
     width: 100%;
     text-align: center;
     font-family: Inter;
@@ -109,12 +109,12 @@
     text-align: center;
   }
 
-  .Profile__add-button {
+  .profile__add-button {
     margin-top: 36px;
     width: 100%;
   }
 
-  .Profile__title {
+  .profile__title {
     font-family: Inter;
     font-size: 22px;
     font-weight: 500;
@@ -125,7 +125,7 @@
     margin-top: 15px;
   }
 
-  .Profile__image {
+  .profile__image {
     margin-right: 0;
     margin-bottom: 30px;
   }

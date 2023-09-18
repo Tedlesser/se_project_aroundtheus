@@ -1,8 +1,8 @@
-.Cards {
+.cards {
   margin-top: 30px;
 }
 
-.Card__list {
+.card__list {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, 282px);
@@ -11,12 +11,12 @@
   margin: 0;
 }
 
-.Card__image {
+.card__image {
   width: 282px;
   height: 282px;
 }
 
-.Card__description {
+.card__description {
   display: flex;
   background-color: white;
   color: black;
@@ -28,14 +28,14 @@
   justify-content: space-around;
 }
 
-.Card__like-button {
+.card__like-button {
   background: transparent url(../images/like-inactive.svg) center no-repeat;
   width: 21px;
   height: 18px;
   border: 0;
 }
 
-.Card__title {
+.card__title {
   max-width: 282px;
   text-overflow: ellipsis;
   white-space: nowrap;

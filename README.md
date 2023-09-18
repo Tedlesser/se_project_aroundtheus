@@ -15,3 +15,9 @@ and grow in accordance to the dimension on the screen, so that as the screen shr
 to does the button shrink as well.
 
 Good luck and have fun!
+
+1. The project's name
+2. A description of the project and its functionality
+3. A description of the technologies and techniques used
+4. Pictures, GIFs, or screenshots that detail the project features (highly recommended)
+5. The link to GitHub Pages

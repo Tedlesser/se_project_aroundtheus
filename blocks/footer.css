@@ -1,4 +1,4 @@
-.Footer {
+.footer {
   font-family: Inter;
   font-size: 18px;
   font-weight: 400;
@@ -9,15 +9,15 @@
   padding-top: 33px;
 }
 
-.Footer__image {
+.footer__image {
   margin-top: 18px;
   margin-left: 270px;
 }
 
 @media screen and (max-width: 800px) {
-  .Footer {
+  .footer {
     padding-top: 33px;
-    width: 282px;
+    max-width: 282px;
     height: 14px;
   }
 }
