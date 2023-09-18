@@ -11,6 +11,14 @@
   margin: 0;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .card__image {
   width: 282px;
   height: 282px;
