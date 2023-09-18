@@ -1,0 +1,132 @@
+.Profile {
+  display: flex;
+  padding-top: 40px;
+}
+
+.Profile__info {
+  display: grid;
+  grid-template-areas:
+    "title button"
+    "description description";
+  grid-template-columns: minmax(auto, 373px) auto;
+  grid-gap: 9px 17px;
+  height: 77px;
+  width: 415px;
+}
+
+.Profile__edit-button {
+  background: transparent url(../images/Edit-Icon.svg) center no-repeat;
+  height: 24px;
+  width: 24px;
+  grid-area: button;
+  margin-top: 15px;
+  color: #fff;
+  border: solid 1px;
+}
+
+.Profile__edit-button:hover {
+  opacity: 60%;
+}
+
+.Profile__add-button {
+  background: transparent url("../images/Add-Icon.svg") center no-repeat;
+  margin-top: 10px;
+  width: 150px;
+  height: 50px;
+  margin-left: auto;
+  border-radius: 2px;
+  color: #fff;
+  border: solid 2px;
+}
+
+.Profile__add-button:hover {
+  opacity: 60%;
+}
+
+.Profile__title {
+  font-family: Inter;
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 48px;
+  letter-spacing: 0em;
+  text-align: left;
+  grid-area: title;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.Profile__description {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  grid-area: description;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 373px;
+  overflow: hidden;
+}
+
+.Profile__image {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-position: center;
+  margin-right: 24px;
+}
+
+@media screen and (max-width: 800px) {
+  .Profile {
+    /* background-color: pink; */
+    flex-direction: column;
+    align-items: center;
+    width: 282px;
+    height: 286px;
+  }
+
+  .Profile__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding-left: 62px;
+    padding-right: 62px;
+    height: 50px;
+    width: 282px;
+  }
+
+  .Profile__description {
+    width: 100%;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+
+  .Profile__add-button {
+    margin-top: 36px;
+    width: 100%;
+  }
+
+  .Profile__title {
+    font-family: Inter;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: center;
+    grid-area: title;
+    margin-top: 15px;
+  }
+
+  .Profile__image {
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+}

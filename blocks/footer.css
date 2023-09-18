@@ -1,0 +1,23 @@
+.Footer {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #545454;
+  padding-top: 33px;
+}
+
+.Footer__image {
+  margin-top: 18px;
+  margin-left: 270px;
+}
+
+@media screen and (max-width: 800px) {
+  .Footer {
+    padding-top: 33px;
+    width: 282px;
+    height: 14px;
+  }
+}
