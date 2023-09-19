@@ -15,4 +15,4 @@ and grow in accordance to the dimension on the screen, so that as the screen shr
 to does the button shrink as well.
 
 **Git Hub**
-https://github.com/Tedlesser/se_project_aroundtheus
+This site was built using [GitHub Pages](https://tedlesser.github.io/se_project_aroundtheus/).

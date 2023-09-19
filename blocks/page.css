@@ -1,5 +1,5 @@
 .page {
-  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-family: "Inter-Black", Arial, Helvetica, sans-serif;
   background-color: black;
   color: white;
 }
@@ -19,8 +19,6 @@
 
 @media screen and (min-width: 800px) {
   .page__section {
-    max-width: 880px;
     width: calc(100% - 60px);
-    position: relative;
   }
 }

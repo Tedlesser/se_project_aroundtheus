@@ -1,6 +1,7 @@
 .profile {
   display: flex;
   padding-top: 40px;
+  font-family: "Inter-Black", Arial, Helvetica, sans-serif;
 }
 
 .profile__info {
@@ -10,7 +11,6 @@
     "description description";
   grid-template-columns: minmax(auto, 373px) auto;
   grid-gap: 9px 17px;
-  height: 77px;
   width: 415px;
 }
 
@@ -44,7 +44,6 @@
 }
 
 .profile__title {
-  font-family: Inter;
   font-size: 42px;
   font-weight: 500;
   line-height: 48px;
@@ -84,7 +83,6 @@
     flex-direction: column;
     align-items: center;
     width: 282px;
-    height: 286px;
   }
 
   .profile__info {
@@ -94,7 +92,6 @@
     width: 100%;
     padding-left: 62px;
     padding-right: 62px;
-    height: 50px;
     max-width: 282px;
   }
 
