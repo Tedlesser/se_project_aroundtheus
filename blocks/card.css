@@ -28,6 +28,11 @@
     width: 21px;
     height: 18px;
     border: 0;
+    cursor: pointer;
+  }
+
+  .card__like-button:hover {
+    opacity: 60%;
   }
   
   .card__title {

@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Inter", Arial, Helvetica, sans-serif"Inter";
+  font-family: "Inter-Regular";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -8,29 +8,22 @@
 }
 
 @font-face {
-  font-family: "Inter-Black", Arial, Helvetica, sans-serif"Inter";
-  font-style:  normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("Inter-Regular.woff2") format("woff2"),
-       url("Inter-Regular.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Inter-Black", Arial, Helvetica, sans-serif"Inter";
-  font-style:  normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("Inter-Regular.woff2") format("woff2"),
-       url("Inter-Regular.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Inter", Arial, Helvetica, sans-serif"Inter";
+  font-family: "Inter-Medium";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
   src: url("./fonts/Inter-Medium.woff2") format("woff2"),
     url("./fonts/Inter-Medium.woff") format("woff");
 }
+
+@font-face {
+  font-family: "Inter-Black";
+  font-style:  normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("Inter-Black.woff2") format("woff2"),
+       url("Inter-Black.woff") format("woff");
+}
+
+
 

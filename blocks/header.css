@@ -1,40 +1,26 @@
 .header {
-  min-height: 85px;
+  min-height: 120px;
   display: flex;
   align-items: center;
-}
-
-.header::before {
-  content: "";
-  width: 100%;
-  height: 1px;
-  opacity: 0.7;
-  background: #545454;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
+  border-bottom: 1px solid #545454;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .header__icon {
   height: 33px;
   width: 173px;
+  object-fit: contain;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 480px) {
   .header {
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    padding-left: 40px;
-  }
-
-  .header::before {
-    width: calc(100% + 40px);
+    min-height: 85px;
   }
 
   .header__icon {
     height: 24px;
     width: 126px;
+    margin: 0 0 0 27px;
   }
 }

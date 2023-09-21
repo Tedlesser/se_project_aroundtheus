@@ -8,6 +8,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding: 0 20px;
+  background-color: black;
 }
 
 .page__section {
@@ -15,10 +17,11 @@
   width: 100%;
   position: relative;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
-@media screen and (min-width: 800px) {
-  .page__section {
-    width: calc(100% - 60px);
+@media screen and (max-width: 480px) {
+  .page__content {
+    padding: 0;
   }
 }
