@@ -36,6 +36,8 @@
   }
   
   .card__title {
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-weight: 900;
     max-width: 282px;
     text-overflow: ellipsis;
     white-space: nowrap;
