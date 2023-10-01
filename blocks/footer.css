@@ -9,11 +9,16 @@
   padding-top: 33px;
 }
 
+.footer__copyright{
+  margin: 0;
+}
+
 @media screen and (max-width: 800px) {
   .footer {
-    padding-top: 33px;
+    padding-top: 48px;
     max-width: 282px;
     font-size: 14px;
+    line-height: 16.94px;
     margin: 0;
   }
 }
