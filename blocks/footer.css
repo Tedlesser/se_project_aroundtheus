@@ -6,19 +6,42 @@
   letter-spacing: 0em;
   text-align: left;
   color: #545454;
-  padding-top: 33px;
+  padding-top: 67px;
+  padding-bottom: 60px; 
 }
 
 .footer__copyright{
   margin: 0;
 }
 
+@media screen and (max-width: 900px) {
+  .footer {   
+    max-width: 590px; 
+  }
+}
+
 @media screen and (max-width: 800px) {
-  .footer {
-    padding-top: 48px;
-    max-width: 282px;
+  .footer {   
+    padding-top: 67px;
+    padding-bottom: 60px;
     font-size: 14px;
     line-height: 16.94px;
-    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    margin: auto;
+    max-width: 590px; 
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .footer {   
+    padding-top: 67px;
+    padding-bottom: 60px;
+    font-size: 14px;
+    line-height: 16.94px;
+    display: flex;
+    align-items: flex-start;
+    margin: auto;
+    max-width: 300px; 
   }
 }
