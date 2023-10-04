@@ -2,7 +2,7 @@
   font-family: "Inter", Arial, Helvetica, sans-serif;
   display: flex;
   align-items: center;
-  padding: 40px 0 32px;
+  padding: 40px 0 21px;
   color: #fff;
 }
 
@@ -36,16 +36,14 @@
 
 .profile__add-button {
   background: transparent url("../images/Add-Icon.svg") center no-repeat;
-
   width: 150px;
   height: 50px;
-
   border-radius: 2px;
   color: #fff;
   border: solid 2px;
   cursor: pointer;
   background-size: 22px;
-  margin-left: auto;
+  margin-left: 17px;
 }
 
 .profile__add-button:hover {
@@ -86,18 +84,10 @@
   margin: 0 29px 0 0;
 }
 
-@media screen and (max-width: 320px) {
-  .profile {
-    flex-direction: column;
-    padding: 43px 0 21px;
-    text-align: center;
-  }
-}
-
 @media screen and (max-width: 621px) {
   .profile {
     flex-direction: column;
-    padding: 43px 0 21px;
+    padding: 43px 0 0px;
     text-align: center;
   }
 
@@ -139,5 +129,13 @@
     width: 18px;
     height: 18px;
     background-size: 8px 8px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile {
+    flex-direction: column;
+    padding: 43px 0 0px;
+    text-align: center;
   }
 }
