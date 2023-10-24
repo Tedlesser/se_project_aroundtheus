@@ -6,14 +6,35 @@
   letter-spacing: 0em;
   text-align: left;
   color: #545454;
-  padding-top: 33px;
+  padding-top: 67px;
+  padding-bottom: 50px; 
 }
 
-@media screen and (max-width: 800px) {
-  .footer {
-    padding-top: 33px;
-    max-width: 282px;
+.footer__copyright{
+  margin: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .footer {   
+    padding-top: 48px;
+    padding-bottom: 36px;
     font-size: 14px;
-    margin: 0;
+    line-height: 16.94px;
+    display: flex;
+    align-items: flex-start;
+    margin: auto;
+    max-width: 580px; 
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .footer {   
+    max-width: 280px; 
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .footer {   
+    margin-left: 19px; 
   }
 }
