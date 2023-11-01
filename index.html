@@ -35,9 +35,7 @@
           <button class="profile__add-button" type="button"></button>
         </section>
         <section class="cards page__section">
-          <ul class="cards__list">
-
-          </ul>
+          <ul class="cards__list"></ul>
         </section>
       </main>
       <footer class="footer page__section">
@@ -46,25 +44,39 @@
     </div>
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button class="modal__close" id="profile-close-button"></button>
-        <p class="modal__heading">Edit Profile</p>
+        <button
+          type="submit"
+          class="modal__close"
+          id="profile-close-button"
+        ></button>
+        <h2 class="modal__heading">Edit Profile</h2>
         <form class="modal__form">
-          <input type="text" name="title" id="profile-title-input" class="modal__input" placeholder="name" />
-          <img src="images/Line.jpg" class="modal__line">
-          <input type="text" name="description" id="profile-description-input" class="modal__input" placeholder="description"/>
-          <img src="images/Line.jpg" class="modal__line">
-          <button class="modal__button">Save</button>
+          <input
+            type="text"
+            name="title"
+            id="profile-title-input"
+            class="modal__input"
+            placeholder="name"
+            required
+          />
+          <img src="images/Line.jpg" class="modal__line" />
+          <input
+            type="text"
+            name="description"
+            id="profile-description-input"
+            class="modal__input"
+            placeholder="description"
+            required
+          />
+          <img src="images/Line.jpg" class="modal__line" />
+          <button type="submit" class="modal__button">Save</button>
         </form>
       </div>
     </div>
 
     <template id="card-template">
       <li class="card">
-        <img
-          src=""
-          alt=""
-          class="card__image"
-        />
+        <img src="" alt="" class="card__image" />
         <div class="card__description">
           <h2 class="card__title"></h2>
           <button class="card__like-button" type="button"></button>
@@ -72,6 +84,6 @@
       </li>
     </template>
 
-    <script src="scripts/index.js"></script>
+    <script src="scripts/index.js" defer></script>
   </body>
 </html>

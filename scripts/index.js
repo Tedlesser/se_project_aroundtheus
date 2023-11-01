@@ -45,8 +45,23 @@ const cardTemplate =
 /*------------------------------------------------------------------*/
 /*                             Functions                            */
 /*------------------------------------------------------------------*/
-function closePopop() {
-  profileEditModal.classList.remove("modal__opened");
+function closePopup() {
+  profileEditModal.classList.remove("modal--opened");
+}
+
+function openPopup() {
+  profileEditModal.classList.add("modal--opened");
+}
+
+function fillProfileForm() {
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
+}
+
+function openEditProfileModal() {
+  openPopup();
+  fillProfileForm();
+  handleProfileEditSubmit(e);
 }
 
 /*------------------------------------------------------------------*/
@@ -55,9 +70,9 @@ function closePopop() {
 
 function handleProfileEditSubmit(e) {
   e.preventDefault();
-  profileTitle.innerHTML = profileTitleInput.value;
-  profileDescription.innerHTML = profileDescriptionInput.value;
-  closePopop();
+  profileTitle.textContent = profileTitleInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
+  closePopup();
 }
 
 function getCardElement(cardData) {
@@ -80,15 +95,11 @@ function getCardElement(cardData) {
 /*                          Event Listener                          */
 /*------------------------------------------------------------------*/
 
-profileEditBtn.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-  profileEditModal.classList.add("modal__opened");
-});
+profileEditBtn.addEventListener("click", openEditProfileModal);
 
-profileCloseBtn.addEventListener("click", closePopop);
+profileCloseBtn.addEventListener("click", closePopup);
 
-profileEditForm.addEventListener("Submit", handleProfileEditSubmit);
+profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 for (let i = 0; i < initialCards.length; i++) {
   console.log(initialCards[i]);
