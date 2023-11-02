@@ -46,11 +46,11 @@ const cardTemplate =
 /*                             Functions                            */
 /*------------------------------------------------------------------*/
 function closePopup() {
-  profileEditModal.classList.remove("modal--opened");
+  profileEditModal.classList.remove("modal_opened");
 }
 
 function openPopup() {
-  profileEditModal.classList.add("modal--opened");
+  profileEditModal.classList.add("modal_opened");
 }
 
 function fillProfileForm() {
@@ -61,7 +61,6 @@ function fillProfileForm() {
 function openEditProfileModal() {
   openPopup();
   fillProfileForm();
-  handleProfileEditSubmit(e);
 }
 
 /*------------------------------------------------------------------*/
