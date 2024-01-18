@@ -101,3 +101,16 @@
     left: calc(92.5%);
   }
 }
+
+.modal__container_type_image {
+  background: none;
+  padding: 0;
+  width: auto;
+  height: auto;
+  display: flex;
+}
+
+.modal__image {
+  max-width: 75vw;
+  max-height: 75vh;
+}

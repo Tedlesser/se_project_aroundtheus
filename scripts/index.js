@@ -38,29 +38,97 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 const profileEditForm = profileEditModal.querySelector(".modal__form");
+
 const cardListEl = document.querySelector(".cards__list");
+const cardAddBtn = document.querySelector(".card__add-button");
+const addEditForm = document.querySelector("#card-edit-modal");
+const cardCloseBtn = document.querySelector("#edit-close-button");
+const cardEditForm = document.querySelector("#card-add-form");
+const cardSaveBtn = document.querySelector("#edit-save-button");
+const cardImageModal = document.querySelector("#card-image-modal");
+const imageCloseBtn = document.querySelector("#image-close-button")
+
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
 /*------------------------------------------------------------------*/
 /*                             Functions                            */
 /*------------------------------------------------------------------*/
-function closePopup() {
-  profileEditModal.classList.remove("modal_opened");
+function closePopup(modal) {
+  modal.classList.remove("modal_opened");
 }
 
-function openPopup() {
-  profileEditModal.classList.add("modal_opened");
+function openPopup(modal) {
+  modal.classList.add("modal_opened");
 }
 
-function fillProfileForm() {
+function openForm() {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
 }
 
 function openEditProfileModal() {
-  openPopup();
-  fillProfileForm();
+  openPopup(profileEditModal);
+  openForm();
+}
+
+function openModal() {
+  openForm();
+  openPopup(cardImageModal);
+}
+
+function closeEditProfileModal() {
+  closePopup(profileEditModal);
+}
+
+function openEditCardModal() {
+  openPopup(addEditForm);
+}
+
+function closeEditCardModal() {
+  closePopup(addEditForm);
+}
+
+function closeImageModal() {
+  closePopup(cardImageModal);
+}
+
+function renderCard(cardData) {
+  // clone the template element with all its content and store it in a cardElement variable
+  const cardEl = cardTemplate.cloneNode(true);
+  // access the card title, card like button, card delete button and image and store them in variables
+  const cardImageEl = cardEl.querySelector(".card__image");
+  const cardTitleEl = cardEl.querySelector(".card__title");
+  const cardLikeBtn = cardEl.querySelector(".card__like-button");
+  const cardDeleteBtn = cardEl.querySelector(".card__delete-button");
+  // set the path to the image to the link field of the object
+  cardImageEl.src = cardData.link;
+  // set the image alt text to the name field of the object
+  cardImageEl.alt = cardData.name;
+  // set the card title to the name field of the object, too
+  cardTitleEl.textContent = cardData.name;
+  //append to card list
+  cardListEl.appendChild(cardEl);
+
+  //add event listener for like button/
+  cardLikeBtn.addEventListener("click", (e) => {
+    e.target.classList.toggle("card__like-button_active");
+  });
+  //add event listener for delete button
+  cardDeleteBtn.addEventListener("click", (e) => {
+    e.target.closest(".card").remove();
+  });
+  //add event listener for image
+  cardImageEl.addEventListener("click", () => {
+    console.log(cardData.link);
+    const modalImageEl = cardImageModal.querySelector(".modal__image");
+    const modalCaption = cardImageModal.querySelector(".image__caption");
+    // replace src with card link
+    modalImageEl.src = cardData.link;
+    // replace alt with card title
+    modalCaption.textContent = cardData.name;
+    openModal(modalImageEl);
+  });
 }
 
 /*------------------------------------------------------------------*/
@@ -71,23 +139,19 @@ function handleProfileEditSubmit(e) {
   e.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
-  closePopup();
+  closePopup(profileEditModal);
 }
 
-function getCardElement(cardData) {
-  // clone the template element with all its content and store it in a cardElement variable
-  const cardElement = cardTemplate.cloneNode(true);
-  // access the card title and image and store them in variables
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__title");
-  // set the path to the image to the link field of the object
-  cardImageEl.src = cardData.link;
-  // set the image alt text to the name field of the object
-  cardImageEl.alt = cardData.name;
-  // set the card title to the name field of the object, too
-  cardTitleEl.textContent = cardData.name;
-  // return the ready HTML element with the filled-in data
-  return cardElement;
+function handleAddSubmit(e) {
+  e.preventDefault();
+  console.log(e.target);
+  const title = e.target.title.value;
+  const link = e.target.link.value;
+  renderCard({
+    name: title,
+    link: link,
+  });
+  closePopup(addEditForm);
 }
 
 /*------------------------------------------------------------------*/
@@ -96,15 +160,22 @@ function getCardElement(cardData) {
 
 profileEditBtn.addEventListener("click", openEditProfileModal);
 
-profileCloseBtn.addEventListener("click", closePopup);
+profileCloseBtn.addEventListener("click", closeEditProfileModal);
+
+cardAddBtn.addEventListener("click", openEditCardModal);
+
+cardCloseBtn.addEventListener("click", closeEditCardModal);
+
+imageCloseBtn.addEventListener("click", closeImageModal);
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+
+cardEditForm.addEventListener("submit", handleAddSubmit);
 
 for (let i = 0; i < initialCards.length; i++) {
   console.log(initialCards[i]);
 }
 
 initialCards.forEach((cardData) => {
-  const cardElement = getCardElement(cardData);
-  cardListEl.append(cardElement);
+  const cardElement = renderCard(cardData);
 });
