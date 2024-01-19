@@ -46,7 +46,7 @@ const cardCloseBtn = document.querySelector("#edit-close-button");
 const cardEditForm = document.querySelector("#card-add-form");
 const cardSaveBtn = document.querySelector("#edit-save-button");
 const cardImageModal = document.querySelector("#card-image-modal");
-const imageCloseBtn = document.querySelector("#image-close-button")
+const imageCloseBtn = document.querySelector("#image-close-button");
 
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -62,18 +62,17 @@ function openPopup(modal) {
   modal.classList.add("modal_opened");
 }
 
-function openForm() {
+function fillProfileInputs() {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
 }
 
 function openEditProfileModal() {
   openPopup(profileEditModal);
-  openForm();
+  fillProfileInputs();
 }
 
-function openModal() {
-  openForm();
+function openImageModal() {
   openPopup(cardImageModal);
 }
 
@@ -93,6 +92,11 @@ function closeImageModal() {
   closePopup(cardImageModal);
 }
 
+//prepend to card list
+function addCard(item) {
+  cardListEl.prepend(item);
+}
+
 function renderCard(cardData) {
   // clone the template element with all its content and store it in a cardElement variable
   const cardEl = cardTemplate.cloneNode(true);
@@ -107,8 +111,8 @@ function renderCard(cardData) {
   cardImageEl.alt = cardData.name;
   // set the card title to the name field of the object, too
   cardTitleEl.textContent = cardData.name;
-  //append to card list
-  cardListEl.appendChild(cardEl);
+  //add card to card list
+  addCard(cardEl);
 
   //add event listener for like button/
   cardLikeBtn.addEventListener("click", (e) => {
@@ -127,7 +131,9 @@ function renderCard(cardData) {
     modalImageEl.src = cardData.link;
     // replace alt with card title
     modalCaption.textContent = cardData.name;
-    openModal(modalImageEl);
+    // set the alt to image title
+    modalImageEl.alt = cardData.name;
+    openImageModal(modalImageEl);
   });
 }
 
@@ -147,6 +153,11 @@ function handleAddSubmit(e) {
   console.log(e.target);
   const title = e.target.title.value;
   const link = e.target.link.value;
+
+  // clear the input
+  e.target.title.value = "";
+  e.target.link.value = "";
+
   renderCard({
     name: title,
     link: link,
@@ -168,14 +179,10 @@ cardCloseBtn.addEventListener("click", closeEditCardModal);
 
 imageCloseBtn.addEventListener("click", closeImageModal);
 
+cardImageModal.addEventListener("click", closeImageModal);
+
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 cardEditForm.addEventListener("submit", handleAddSubmit);
 
-for (let i = 0; i < initialCards.length; i++) {
-  console.log(initialCards[i]);
-}
-
-initialCards.forEach((cardData) => {
-  const cardElement = renderCard(cardData);
-});
+initialCards.forEach(renderCard);

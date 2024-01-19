@@ -33,7 +33,7 @@
   border: solid 2px;
   cursor: pointer;
   background-size: 22px;
-  margin-left: auto;
+  margin: auto;
 }
 
 .card__add-button:hover {
