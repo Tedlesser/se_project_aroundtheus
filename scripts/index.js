@@ -93,11 +93,11 @@ function closeImageModal() {
 }
 
 //prepend to card list
-function addCard(item) {
-  cardListEl.prepend(item);
+function addCard(cardEl) {
+  cardListEl.prepend(cardEl);
 }
 
-function renderCard(cardData) {
+function createCard(cardData) {
   // clone the template element with all its content and store it in a cardElement variable
   const cardEl = cardTemplate.cloneNode(true);
   // access the card title, card like button, card delete button and image and store them in variables
@@ -111,8 +111,7 @@ function renderCard(cardData) {
   cardImageEl.alt = cardData.name;
   // set the card title to the name field of the object, too
   cardTitleEl.textContent = cardData.name;
-  //add card to card list
-  addCard(cardEl);
+  //add card to card list;
 
   //add event listener for like button/
   cardLikeBtn.addEventListener("click", (e) => {
@@ -135,6 +134,7 @@ function renderCard(cardData) {
     modalImageEl.alt = cardData.name;
     openImageModal(modalImageEl);
   });
+  return cardEl;
 }
 
 /*------------------------------------------------------------------*/
@@ -158,7 +158,7 @@ function handleAddSubmit(e) {
   e.target.title.value = "";
   e.target.link.value = "";
 
-  renderCard({
+  createCard({
     name: title,
     link: link,
   });
@@ -179,10 +179,11 @@ cardCloseBtn.addEventListener("click", closeEditCardModal);
 
 imageCloseBtn.addEventListener("click", closeImageModal);
 
-cardImageModal.addEventListener("click", closeImageModal);
-
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 cardEditForm.addEventListener("submit", handleAddSubmit);
 
-initialCards.forEach(renderCard);
+initialCards.forEach((cardData) => {
+  const newCardEl = createCard(cardData);
+  addCard(newCardEl);
+});
