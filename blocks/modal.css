@@ -109,8 +109,13 @@
 
 @media screen and (max-width: 320px) {
   .modal__close {
-    bottom: calc(100% + 5px);
-    left: 85%;
+    bottom: calc(100% + 10px);
+    left: calc(87.5% + 5px);
+    width: 26px;
+    height: 26px
+  }
+  .modal__heading {
+    font-size: 18px;
   }
 }
 

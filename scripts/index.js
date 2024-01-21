@@ -157,11 +157,11 @@ function handleAddSubmit(e) {
   // clear the input
   e.target.title.value = "";
   e.target.link.value = "";
-
-  createCard({
+  const newCardEl = createCard({
     name: title,
     link: link,
   });
+  addCard(newCardEl);
   closePopup(addEditForm);
 }
 
