@@ -94,6 +94,7 @@
   border-radius: 2px;
   margin-top: 44px;
   cursor: pointer;
+  font-size: 18px;
 }
 
 .modal__button:hover {
@@ -112,10 +113,16 @@
     bottom: calc(100% + 10px);
     left: calc(87.5% + 5px);
     width: 26px;
-    height: 26px
+    height: 26px;
   }
   .modal__heading {
     font-size: 18px;
+  }
+
+  .modal__button {
+    font-size: 14px;
+    height: 46px;
+    border-radius: 2px;
   }
 }
 
