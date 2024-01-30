@@ -58,8 +58,10 @@
             class="modal__input"
             placeholder="name"
             required
+            minlength="2"
+            maxlength="40"
           />
-          <img src="images/Line.jpg" class="modal__line" />
+          <span class="modal__input-error profile-title-input-error"></span>
           <input
             type="text"
             name="description"
@@ -67,9 +69,17 @@
             class="modal__input"
             placeholder="description"
             required
+            minlength="2"
+            maxlength="200"
           />
-          <img src="images/Line.jpg" class="modal__line" />
-          <button type="submit" id="add-button" class="modal__button">
+          <span
+            class="modal__input-error profile-description-input-error"
+          ></span>
+          <button
+            type="submit"
+            id="add-button"
+            class="modal__button modal__submit-button"
+          >
             Save
           </button>
         </form>
@@ -83,7 +93,7 @@
           id="edit-close-button"
         ></button>
         <h3 class="modal__heading">New Place</h3>
-        <form class="modal__form" id="card-add-form">
+        <form class="modal__form" id="card-add-form" novalidate>
           <input
             type="text"
             name="title"
@@ -91,18 +101,24 @@
             class="modal__input"
             placeholder="name"
             required
+            minlength="1"
+            maxlength="30"
           />
-          <img src="images/Line.jpg" class="modal__line" />
+          <span class="modal__input-error edit-title-input-error"></span>
           <input
-            type="text"
+            type="url"
             name="link"
             id="edit-image-input"
             class="modal__input"
             placeholder="link"
             required
           />
-          <img src="images/Line.jpg" class="modal__line" />
-          <button type="submit" id="edit-save-button" class="modal__button">
+          <span class="modal__input-error edit-image-input-error"></span>
+          <button
+            type="submit"
+            id="edit-save-button"
+            class="modal__button modal__submit-button"
+          >
             Save
           </button>
         </form>
@@ -133,5 +149,6 @@
     </template>
 
     <script src="scripts/index.js" defer></script>
+    <script src="scripts/validation.js" defer></script>
   </body>
 </html>

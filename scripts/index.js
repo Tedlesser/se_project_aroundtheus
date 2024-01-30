@@ -138,7 +138,7 @@ function createCard(cardData) {
 }
 
 /*------------------------------------------------------------------*/
-/*                          Event Handler                           */
+/*                          Event Object                            */
 /*------------------------------------------------------------------*/
 
 function handleProfileEditSubmit(e) {
@@ -182,6 +182,42 @@ imageCloseBtn.addEventListener("click", closeImageModal);
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 cardEditForm.addEventListener("submit", handleAddSubmit);
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeEditProfileModal();
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeEditCardModal();
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeImageModal();
+  }
+});
+
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("modal_opened")) {
+    closeEditProfileModal();
+  }
+});
+
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("modal_opened")) {
+    closeEditCardModal();
+  }
+});
+
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("modal_opened")) {
+    closeImageModal();
+  }
+});
 
 initialCards.forEach((cardData) => {
   const newCardEl = createCard(cardData);
