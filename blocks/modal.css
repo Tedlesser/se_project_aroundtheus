@@ -98,15 +98,20 @@
   font-size: 18px;
 }
 
+.modal__button:hover:not(:disabled) { // selects not disabled hovered button
+  opacity: 0.6;
+} 
+
 .modal__button:hover {
   opacity: 60%;
 }
 
-.modal__button-inactive {
+.modal__button-inactive:hover{
   color: gray;
   background-color: white;
   border: 1px solid gray;
   opacity: 40%;
+  cursor: default; 
 }
 
 @media screen and (max-width: 700px) {
