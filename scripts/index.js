@@ -137,6 +137,61 @@ function createCard(cardData) {
   return cardEl;
 }
 
+// Declare the keydown event listener function
+function keydownEventListener(event) {
+  if (event.key === "Escape") {
+    console.log("key pressed")
+    closeEditProfileModal();
+    closeEditCardModal();
+    closeImageModal();
+  }
+}
+
+// Function to add the keydown event listener
+function addKeydownEventListener() {
+  document.addEventListener("keydown", keydownEventListener);
+}
+
+// Function to remove the keydown event listener
+function removeKeydownEventListener() {
+  document.removeEventListener("keydown", keydownEventListener);
+}
+
+function globalClickListener(event) {
+  if (event.target.classList.contains("modal_opened")) {
+    closeEditProfileModal();
+    closeEditCardModal();
+    closeImageModal();
+  }
+}
+
+// Function to add the global click listener
+function addGlobalClickListener() {
+  document.addEventListener("click", globalClickListener);
+}
+
+// Function to remove the global click listener
+function removeGlobalClickListener() {
+  document.removeEventListener("click", globalClickListener);
+}
+
+function openPopup(modal) {
+  // Open the popup logic...
+  modal.classList.add("modal_opened");
+  // Add global click listener when the popup is opened
+  addGlobalClickListener();
+  addKeydownEventListener();
+}
+
+// Function to close the popup
+function closePopup(modal) {
+  // Close the popup logic...
+  modal.classList.remove("modal_opened");
+  // Remove global click listener when the popup is closed
+  removeGlobalClickListener();
+  removeKeydownEventListener();
+}
+
 /*------------------------------------------------------------------*/
 /*                          Event Object                            */
 /*------------------------------------------------------------------*/
@@ -182,42 +237,6 @@ imageCloseBtn.addEventListener("click", closeImageModal);
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 cardEditForm.addEventListener("submit", handleAddSubmit);
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    closeEditProfileModal();
-  }
-});
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    closeEditCardModal();
-  }
-});
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    closeImageModal();
-  }
-});
-
-document.addEventListener("click", function (event) {
-  if (event.target.classList.contains("modal_opened")) {
-    closeEditProfileModal();
-  }
-});
-
-document.addEventListener("click", function (event) {
-  if (event.target.classList.contains("modal_opened")) {
-    closeEditCardModal();
-  }
-});
-
-document.addEventListener("click", function (event) {
-  if (event.target.classList.contains("modal_opened")) {
-    closeImageModal();
-  }
-});
 
 initialCards.forEach((cardData) => {
   const newCardEl = createCard(cardData);
