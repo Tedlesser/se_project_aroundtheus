@@ -54,13 +54,6 @@ const cardTemplate =
 /*------------------------------------------------------------------*/
 /*                             Functions                            */
 /*------------------------------------------------------------------*/
-function closePopup(modal) {
-  modal.classList.remove("modal_opened");
-}
-
-function openPopup(modal) {
-  modal.classList.add("modal_opened");
-}
 
 function fillProfileInputs() {
   profileTitleInput.value = profileTitle.textContent;
@@ -138,41 +131,37 @@ function createCard(cardData) {
 }
 
 // Declare the keydown event listener function
-function keydownEventListener(event) {
+function handleKeydown(event) {
   if (event.key === "Escape") {
-    console.log("key pressed")
-    closeEditProfileModal();
-    closeEditCardModal();
-    closeImageModal();
+    const openedModal = document.querySelector(".modal_opened")
+      closePopup(openedModal); 
   }
 }
 
 // Function to add the keydown event listener
 function addKeydownEventListener() {
-  document.addEventListener("keydown", keydownEventListener);
+  document.addEventListener("keydown", handleKeydown);
 }
 
 // Function to remove the keydown event listener
 function removeKeydownEventListener() {
-  document.removeEventListener("keydown", keydownEventListener);
+  document.removeEventListener("keydown", handleKeydown);
 }
 
-function globalClickListener(event) {
+function handleOutsideClick(event) {
   if (event.target.classList.contains("modal_opened")) {
-    closeEditProfileModal();
-    closeEditCardModal();
-    closeImageModal();
+    closePopup(event.target);
   }
 }
 
 // Function to add the global click listener
 function addGlobalClickListener() {
-  document.addEventListener("click", globalClickListener);
+  document.addEventListener("click", handleOutsideClick);
 }
 
 // Function to remove the global click listener
 function removeGlobalClickListener() {
-  document.removeEventListener("click", globalClickListener);
+  document.removeEventListener("click", handleOutsideClick);
 }
 
 function openPopup(modal) {
