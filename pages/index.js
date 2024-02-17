@@ -95,7 +95,8 @@ function closeEditProfileModal() {
 }
 
 function openEditCardModal() {
-  openPopup(addEditForm);
+  openPopup(addEditForm)
+  addFormValidator.resetValidation();
 }
 
 function closeEditCardModal() {
@@ -184,7 +185,7 @@ function handleAddSubmit(event) {
   event.target.link.value = "";
 
   // Create a new Card instance and get its view
-  const newCard = new Card({ name: title, link: link }, "#card-template");
+  const newCard = new Card({ name: title, link: link }, "#card-template", handleImageClick);
   const newCardEl = newCard.getView();
 
   // Add the new card element to the DOM

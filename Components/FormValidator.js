@@ -41,6 +41,13 @@ export default class FormValidator {
     this._setEventListener();
   }
 
+  resetValidation() {
+    this._toggleButtonState();
+    inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
+
   _toggleButtonState = (buttonElement, inputList) => {
     // Added settings as parameter
     if (this._hasInvalidInput(inputList)) {
@@ -83,4 +90,3 @@ const settings = {
   modalFormInputTypeError: "modal_form__input_type_error",
   formInputErrorActive: "form__input-error_active",
 };
-
