@@ -42,7 +42,9 @@ export default class FormValidator {
   }
 
   resetValidation() {
-    this._toggleButtonState();
+    const inputList = Array.from(this._form.querySelectorAll(this._modalInput));
+    const buttonElement = this._form.querySelector(this._modalButton);
+    this._toggleButtonState(buttonElement, inputList);
     inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
