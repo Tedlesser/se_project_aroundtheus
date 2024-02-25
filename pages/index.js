@@ -1,5 +1,5 @@
-import FormValidator from "../Components/FormValidator.js";
-import Card from "../Components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
 
 const initialCards = [
   {
@@ -188,7 +188,10 @@ function handleAddSubmit(event) {
   event.target.link.value = "";
 
   // Add the new card element to the DOM
-  const card = createCard({ title, link });
+  const card = createCard({
+    name: title,
+    link: link,
+  });
   addCard(card);
 
   // Close the popup
