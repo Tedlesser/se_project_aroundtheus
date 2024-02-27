@@ -1,70 +1,25 @@
+import { initialCards, containerSelector } from "../components/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
 
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
+// Create instances of the class.
+const cardPreview = new PopupWithImage(containerSelector.previewModal);
 
-/*------------------------------------------------------------------*/
-/*                              Element                             */
-/*------------------------------------------------------------------*/
-const profileEditBtn = document.querySelector("#profile-edit-button");
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const profileCloseBtn = document.querySelector("#profile-close-button");
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
-const profileTitleInput = document.querySelector("#profile-title-input");
-const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
-);
-const profileEditForm = profileEditModal.querySelector(".modal__form");
-
-const cardListEl = document.querySelector(".cards__list");
-const cardAddBtn = document.querySelector(".card__add-button");
-const addEditForm = document.querySelector("#card-edit-modal");
-const cardCloseBtn = document.querySelector("#edit-close-button");
-const cardEditForm = document.querySelector("#card-add-form");
-const cardSaveBtn = document.querySelector("#edit-save-button");
-const cardImageModal = document.querySelector("#card-image-modal");
-const imageCloseBtn = document.querySelector("#image-close-button");
-const modalImageEl = cardImageModal.querySelector(".modal__image");
-const modalCaption = cardImageModal.querySelector(".image__caption");
-
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-
-// Validation activation
-const validationSettings = {
-  modalForm: ".modal__form",
-  modalInput: ".modal__input",
-  modalButton: ".modal__button",
-  modalButtonInactive: "modal__button-inactive",
-  modalFormInputTypeError: "modal_form__input_type_error",
-  formInputErrorActive: "form__input-error_active",
-};
+const CardSection = new Section({
+  renderer: ({ name, link }) => {
+    const cardEl = new Card(
+      { name, link },
+      containerSelector.cardTemplate,
+      handleImageClick
+    );
+    CardSection.addItem(cardEl.getView());
+  },
+  containerSelector: containerSelector.cardSection,
+});
 
 const editFormValidator = new FormValidator(
   validationSettings,
@@ -72,12 +27,17 @@ const editFormValidator = new FormValidator(
 );
 const addFormValidator = new FormValidator(validationSettings, cardEditForm);
 
+const newCardPopup = new PopupWithForm("#card-edit-modal", () => {});
+
+// Initialize all my instances.
+CardSection.renderItems(initialCards);
+cardPreview.setEventListeners();
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
+newCardPopup.open();
+newCardPopup.close();
 
-/*------------------------------------------------------------------*/
-/*                             Functions                            */
-/*------------------------------------------------------------------*/
+// all the rest.
 
 function fillProfileInputs() {
   profileTitleInput.value = profileTitle.textContent;
@@ -87,10 +47,6 @@ function fillProfileInputs() {
 function openEditProfileModal() {
   openPopup(profileEditModal);
   fillProfileInputs();
-}
-
-function openImageModal() {
-  openPopup(cardImageModal);
 }
 
 function closeEditProfileModal() {
@@ -110,62 +66,84 @@ function closeImageModal() {
   closePopup(cardImageModal);
 }
 
+function openImageModal() {
+  openPopup(cardImageModal);
+}
+
+profileEditBtn.addEventListener("click", openEditProfileModal);
+
+profileCloseBtn.addEventListener("click", closeEditProfileModal);
+
+cardAddBtn.addEventListener("click", openEditCardModal);
+
+cardCloseBtn.addEventListener("click", closeEditCardModal);
+
+imageCloseBtn.addEventListener("click", closeImageModal);
+
+profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+
+cardEditForm.addEventListener("submit", handleAddSubmit);
+
+/*------------------------------------------------------------------*/
+/*                             Functions                            */
+/*------------------------------------------------------------------*/
+
 //prepend to card list
 function addCard(cardEl) {
   cardListEl.prepend(cardEl);
 }
 
 // Declare the keydown event listener function
-function handleKeydown(event) {
-  if (event.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
+// function handleKeydown(event) {
+//   if (event.key === "Escape") {
+//     const openedModal = document.querySelector(".modal_opened");
 
-    closePopup(openedModal);
-  }
-}
+//     closePopup(openedModal);
+//   }
+// }
 
-// Function to add the keydown event listener
-function addKeydownEventListener() {
-  document.addEventListener("keydown", handleKeydown);
-}
+// // Function to add the keydown event listener
+// function addKeydownEventListener() {
+//   document.addEventListener("keydown", handleKeydown);
+// }
 
-// Function to remove the keydown event listener
-function removeKeydownEventListener() {
-  document.removeEventListener("keydown", handleKeydown);
-}
+// // Function to remove the keydown event listener
+// function removeKeydownEventListener() {
+//   document.removeEventListener("keydown", handleKeydown);
+// }
 
-function handleOutsideClick(event) {
-  if (event.target.classList.contains("modal_opened")) {
-    closePopup(event.target);
-  }
-}
+// function handleOutsideClick(event) {
+//   if (event.target.classList.contains("modal_opened")) {
+//     closePopup(event.target);
+//   }
+// }
 
-// Function to add the global click listener
-function addGlobalClickListener() {
-  document.addEventListener("click", handleOutsideClick);
-}
+// // Function to add the global click listener
+// function addGlobalClickListener() {
+//   document.addEventListener("click", handleOutsideClick);
+// }
 
-// Function to remove the global click listener
-function removeGlobalClickListener() {
-  document.removeEventListener("click", handleOutsideClick);
-}
+// // Function to remove the global click listener
+// function removeGlobalClickListener() {
+//   document.removeEventListener("click", handleOutsideClick);
+// }
 
-function openPopup(modal) {
-  // Open the popup logic...
-  modal.classList.add("modal_opened");
-  // Add global click listener when the popup is opened
-  addGlobalClickListener();
-  addKeydownEventListener();
-}
+// function openPopup(modal) {
+//   // Open the popup logic...
+//   modal.classList.add("modal_opened");
+//   // Add global click listener when the popup is opened
+//   addGlobalClickListener();
+//   addKeydownEventListener();
+// }
 
-// Function to close the popup
-function closePopup(modal) {
-  // Close the popup logic...
-  modal.classList.remove("modal_opened");
-  // Remove global click listener when the popup is closed
-  removeGlobalClickListener();
-  removeKeydownEventListener();
-}
+// // Function to close the popup
+// function closePopup(modal) {
+//   // Close the popup logic...
+//   modal.classList.remove("modal_opened");
+//   // Remove global click listener when the popup is closed
+//   removeGlobalClickListener();
+//   removeKeydownEventListener();
+// }
 
 /*------------------------------------------------------------------*/
 /*                          Event Object                            */
@@ -198,24 +176,6 @@ function handleAddSubmit(event) {
   closePopup(addEditForm);
 }
 
-/*------------------------------------------------------------------*/
-/*                          Event Listener                          */
-/*------------------------------------------------------------------*/
-
-profileEditBtn.addEventListener("click", openEditProfileModal);
-
-profileCloseBtn.addEventListener("click", closeEditProfileModal);
-
-cardAddBtn.addEventListener("click", openEditCardModal);
-
-cardCloseBtn.addEventListener("click", closeEditCardModal);
-
-imageCloseBtn.addEventListener("click", closeImageModal);
-
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-
-cardEditForm.addEventListener("submit", handleAddSubmit);
-
 initialCards.forEach((item) => {
   const card = createCard(item);
   addCard(card);
@@ -227,12 +187,12 @@ function createCard({ name, link }) {
   return cardElement;
 }
 
-function handleImageClick(name, link) {
-  // replace src with card link
-  modalImageEl.src = link;
-  // replace alt with card title
-  modalCaption.textContent = name;
-  // set the alt to image title
-  modalImageEl.alt = name;
-  openImageModal(modalImageEl);
-}
+// function handleImageClick(name, link) {
+//   // replace src with card link
+//   modalImageEl.src = link;
+//   // replace alt with card title
+//   modalCaption.textContent = name;
+//   // set the alt to image title
+//   modalImageEl.alt = name;
+//   openImageModal(modalImageEl);
+// }
