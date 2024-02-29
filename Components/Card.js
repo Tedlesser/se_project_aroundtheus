@@ -1,4 +1,3 @@
-
 export default class Card {
   constructor({ name, link }, cardSelector, handleImageClick) {
     this._name = name;
@@ -57,4 +56,3 @@ export default class Card {
     return this._cardEl; // Return this._cardEl instead of cardEl
   }
 }
-

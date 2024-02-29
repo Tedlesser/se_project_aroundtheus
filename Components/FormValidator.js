@@ -6,7 +6,6 @@ export default class FormValidator {
     this._modalFormInputTypeError = settings.modalFormInputTypeError;
     this._formInputErrorActive = settings.formInputErrorActive;
     this._form = formElement;
-    console.log(this);
   }
 
   _showInputError = (inputElement, errorMessage) => {
@@ -34,7 +33,6 @@ export default class FormValidator {
   };
 
   enableValidation() {
-    console.log(this._form);
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
