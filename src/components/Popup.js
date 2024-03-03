@@ -1,7 +1,6 @@
 export default class Popup {
   constructor({ popupSelector }) {
-    this._popupElement = document.querySelector( popupSelector );
-    console.log(this._popupElement);
+    this._popupElement = document.querySelector(popupSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
   }
 
@@ -16,14 +15,15 @@ export default class Popup {
     // Close the popup logic...
     this._popupElement.classList.remove("modal_opened");
     // Remove global esc. click listener when the popup is closed
-    document.removeEventListener("keydown", this._handleEscClose);
+    document.removeEventListener("keydown",this._handleEscClose);
   }
 
   _handleEscClose(event) {
+    console.log(event)
     if (event.key === "Escape") {
       this.close();
-    }
-  }
+      }
+    };
 
   setEventListeners() {
     this._popupElement.addEventListener("click", (event) => {
