@@ -115,8 +115,6 @@ function addCard(cardEl) {
 /*------------------------------------------------------------------*/
 
 function handleProfileEditSubmit(event) {
-  console.log(event);
-  event.preventDefault();
   Constants.profileTitle.textContent = Constants.profileTitleInput.value;
   Constants.profileDescription.textContent =
     Constants.profileDescriptionInput.value;
@@ -124,7 +122,6 @@ function handleProfileEditSubmit(event) {
 }
 
 function handleAddSubmit(event) {
-  event.preventDefault();
   const title = event.target.title.value;
   const link = event.target.link.value;
 
