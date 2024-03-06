@@ -32,16 +32,24 @@ const userInfo = new UserInfo(
 const profileEditModal = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
   handleFormSubmit: (data) => {
-    handleProfileEditSubmit(data);
+    userInfo.setUserInfo(data);
   },
 });
+
+profileEditModal.setEventListeners();
 
 const addCardModal = new PopupWithForm({
   popupSelector: "#card-edit-modal",
   handleFormSubmit: (data) => {
-    handleProfileEditSubmit(data);
+    cardList.addItem(createCard(data));
+
+    cardForm.reset();
+
+    cardFormValidator.disableSubmitButton();
   },
 });
+
+addCardModal.setEventListeners();
 
 const cardSection = new Section({
   items: Constants.initialCards,
@@ -54,7 +62,6 @@ const cardSection = new Section({
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 popupImage.setEventListeners();
-userInfo;
 profileEditModal.setEventListeners();
 addCardModal.setEventListeners();
 
@@ -73,36 +80,16 @@ Constants.initialCards.forEach((item) => {
 /*                             Functions                            */
 /*------------------------------------------------------------------*/
 
-function fillProfileInputs() {
+function openEditProfileModal() {
+  profileEditModal.open(Constants.profileEditModal);
   const currentUserInfo = userInfo.getUserInfo();
   Constants.profileTitleInput.value = currentUserInfo.name;
   Constants.profileDescriptionInput.value = currentUserInfo.description;
 }
 
-function openEditProfileModal() {
-  profileEditModal.open(Constants.profileEditModal);
-  fillProfileInputs();
-}
-
-function closeEditProfileModal() {
-  profileEditModal.close(Constants.profileEditModal);
-}
-
-function openImageModal() {
-  popupImage.open(Constants.cardImageModal);
-}
-
-function closeImageModal() {
-  popupImage.close(Constants.cardImageModal);
-}
-
 function openEditCardModal() {
   addCardModal.open(Constants.addEditForm);
   addFormValidator.resetValidation();
-}
-
-function closeEditCardModal() {
-  addCardModal.close(Constants.addEditForm);
 }
 
 //prepend to card list
@@ -146,15 +133,7 @@ function handleAddSubmit(event) {
 
 Constants.profileEditBtn.addEventListener("click", openEditProfileModal);
 
-Constants.profileCloseBtn.addEventListener("click", closeEditProfileModal);
-
 Constants.cardAddBtn.addEventListener("click", openEditCardModal);
-
-Constants.cardCloseBtn.addEventListener("click", closeEditCardModal);
-
-Constants.imageCloseBtn.addEventListener("click", closeImageModal);
-
-Constants.imageCloseBtn.addEventListener("click", closeImageModal);
 
 Constants.profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
