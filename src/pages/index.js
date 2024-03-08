@@ -41,6 +41,8 @@ const profileEditModal = new PopupWithForm({
 const addCardModal = new PopupWithForm({
   popupSelector: "#card-edit-modal",
   handleFormSubmit: (data) => {
+    console.trace(data);
+
     cardSection.addItem(createCard(data));
 
     Constants.cardEditForm.reset();
