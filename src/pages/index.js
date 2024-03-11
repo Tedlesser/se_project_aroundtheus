@@ -87,8 +87,7 @@ function openEditProfileModal() {
 }
 
 function openEditCardModal() {
-  addCardModal.open(Constants.addEditForm);
-  addFormValidator.resetValidation();
+  addCardModal.open();
 }
 
 /*------------------------------------------------------------------*/
@@ -96,10 +95,12 @@ function openEditCardModal() {
 /*------------------------------------------------------------------*/
 
 function handleProfileEditSubmit() {
-  Constants.profileTitle.textContent = Constants.profileTitleInput.value;
-  Constants.profileDescription.textContent =
-    Constants.profileDescriptionInput.value;
-  profileEditModal.close(Constants.profileEditModal);
+  const newInfo = {
+    name: Constants.profileTitleInput.value,
+    description: Constants.profileDescriptionInput.value,
+  };
+  userInfo.setUserInfo(newInfo);
+  profileEditModal.close();
 }
 
 /*------------------------------------------------------------------*/
