@@ -80,7 +80,7 @@ function createCard({ name, link }) {
 /*------------------------------------------------------------------*/
 
 function openEditProfileModal() {
-  profileEditModal.open(Constants.profileEditModal);
+  profileEditModal.open();
   const currentUserInfo = userInfo.getUserInfo();
   Constants.profileTitleInput.value = currentUserInfo.name;
   Constants.profileDescriptionInput.value = currentUserInfo.description;
@@ -94,12 +94,8 @@ function openEditCardModal() {
 /*                          Event Objects                            */
 /*------------------------------------------------------------------*/
 
-function handleProfileEditSubmit() {
-  const newInfo = {
-    name: Constants.profileTitleInput.value,
-    description: Constants.profileDescriptionInput.value,
-  };
-  userInfo.setUserInfo(newInfo);
+function handleProfileEditSubmit({ title, description }) {
+  userInfo.setUserInfo({ title, description });
   profileEditModal.close();
 }
 
