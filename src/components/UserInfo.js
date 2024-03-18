@@ -15,4 +15,5 @@ export default class UserInfo {
     this._name.textContent = title;
     this._description.textContent = description;
   }
+
 }

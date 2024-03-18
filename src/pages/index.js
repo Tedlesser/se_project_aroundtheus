@@ -5,7 +5,16 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
+import Api from "../components/Api.js";
 import "./index.css";
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "5764b9be-6485-485e-a9f1-d6c0fb47f479",
+    "Content-Type": "application/json",
+  },
+});
 
 const editFormValidator = new FormValidator(
   Constants.validationSettings,
@@ -24,12 +33,12 @@ const handleImageClick = ({ name, link }) => {
   popupImage.open({ name, link });
 };
 
-const userInfo = new UserInfo({
+const profileUserInfo = new UserInfo({
   nameSelector: ".profile__title",
   descriptionSelector: ".profile__description",
 });
 
-userInfo.getUserInfo();
+profileUserInfo.getUserInfo();
 
 const profileEditModal = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
@@ -42,27 +51,33 @@ const addCardModal = new PopupWithForm({
   popupSelector: "#card-edit-modal",
   handleFormSubmit: (data) => {
     console.trace(data);
-
-    cardSection.addItem(createCard(data));
-
+    cardSection.addItem(createCard());
     Constants.cardEditForm.reset();
-
     addFormValidator.resetValidation();
   },
 });
 
-const cardSection = new Section(
-  {
-    items: Constants.initialCards,
-    renderer: (data) => {
-      const card = createCard(data);
-      cardSection.addItem(card);
+api.getInitialCards().then((res) => {
+  const cardSection = new Section(
+    {
+      items: res,
+      renderer: (data) => {
+        const card = createCard(data);
+        cardSection.addItem(card);
+      },
     },
-  },
-  ".cards__list"
-);
+    ".cards__list"
+  )  
+  cardSection.renderItems();
+});
 
-cardSection.renderItems();
+api.getUserInfo(profileUserInfo._name, profileUserInfo._description)
+.then ((res) => {
+  profileUserInfo.setUserInfo({title: res.name, description: res.about});
+}).catch ((err) => {
+  console.error(err); 
+}); 
+
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 popupImage.setEventListeners();
@@ -81,7 +96,7 @@ function createCard({ name, link }) {
 
 function openEditProfileModal() {
   profileEditModal.open();
-  const currentUserInfo = userInfo.getUserInfo();
+  const currentUserInfo = profileUserInfo.getUserInfo();
   Constants.profileTitleInput.value = currentUserInfo.name;
   Constants.profileDescriptionInput.value = currentUserInfo.description;
 }
@@ -95,7 +110,7 @@ function openEditCardModal() {
 /*------------------------------------------------------------------*/
 
 function handleProfileEditSubmit({ title, description }) {
-  userInfo.setUserInfo({ title, description });
+  profileUserInfo.setUserInfo({ title, description });
   profileEditModal.close();
 }
 
