@@ -7,6 +7,7 @@ import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import Api from "../components/Api.js";
 import "./index.css";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -33,9 +34,17 @@ const handleImageClick = ({ name, link }) => {
   popupImage.open({ name, link });
 };
 
+const deleteCardModal = new PopupWithConfirm({
+  popupSelector: "#delete-card-modal",
+  handleDeleteCard,
+});
+// set event listeners for delete card popup
+deleteCardModal.setEventListeners();
+
 const profileUserInfo = new UserInfo({
   nameSelector: ".profile__title",
   descriptionSelector: ".profile__description",
+  avatarSelector: ".profile__image",
 });
 
 profileUserInfo.getUserInfo();
@@ -47,36 +56,41 @@ const profileEditModal = new PopupWithForm({
   },
 });
 
+const cardSection = new Section(
+  {
+    renderer: (data) => {
+      const card = createCard(data);
+      cardSection.addItem(card);
+    },
+  },
+  ".cards__list"
+);
+
 const addCardModal = new PopupWithForm({
   popupSelector: "#card-edit-modal",
   handleFormSubmit: (data) => {
     console.trace(data);
-    cardSection.addItem(createCard());
-    Constants.cardEditForm.reset();
-    addFormValidator.resetValidation();
+    api.createCards(data).then((res) => {
+      cardSection.addItem(createCard(data));
+      Constants.cardEditForm.reset();
+      addFormValidator.resetValidation();
+    });
   },
 });
 
 api.getInitialCards().then((res) => {
-  const cardSection = new Section(
-    {
-      items: res,
-      renderer: (data) => {
-        const card = createCard(data);
-        cardSection.addItem(card);
-      },
-    },
-    ".cards__list"
-  )  
-  cardSection.renderItems();
+  console.log(res);
+  cardSection.renderItems(res);
 });
 
-api.getUserInfo(profileUserInfo._name, profileUserInfo._description)
-.then ((res) => {
-  profileUserInfo.setUserInfo({title: res.name, description: res.about});
-}).catch ((err) => {
-  console.error(err); 
-}); 
+api
+  .getUserInfo(profileUserInfo._name, profileUserInfo._description)
+  .then((res) => {
+    profileUserInfo.setUserInfo({ title: res.name, description: res.about });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
@@ -85,7 +99,12 @@ profileEditModal.setEventListeners();
 addCardModal.setEventListeners();
 
 function createCard({ name, link }) {
-  const card = new Card({ name, link }, "#card-template", handleImageClick);
+  const card = new Card(
+    { name, link },
+    "#card-template",
+    handleImageClick,
+    handleDeleteCard
+  );
   const cardElement = card.getView();
   return cardElement;
 }
@@ -95,14 +114,32 @@ function createCard({ name, link }) {
 /*------------------------------------------------------------------*/
 
 function openEditProfileModal() {
-  profileEditModal.open();
-  const currentUserInfo = profileUserInfo.getUserInfo();
-  Constants.profileTitleInput.value = currentUserInfo.name;
-  Constants.profileDescriptionInput.value = currentUserInfo.description;
+  api.updateProfileInfo().then((res) => {
+    profileEditModal.open();
+    const currentUserInfo = profileUserInfo.getUserInfo();
+    Constants.profileTitleInput.value = currentUserInfo.name;
+    Constants.profileDescriptionInput.value = currentUserInfo.description;
+  });
 }
 
 function openEditCardModal() {
   addCardModal.open();
+}
+
+function handleDeleteCard(card) {
+  // open the delete card popup
+  deleteCardModal.open();
+  deleteCardModal.setSubmitCallback(() => {
+    api
+      .deleteCard(card.getId())
+      .then(() => {
+        card._handleDeleteCard();
+        deleteCardModal.close();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
 }
 
 /*------------------------------------------------------------------*/
@@ -110,8 +147,10 @@ function openEditCardModal() {
 /*------------------------------------------------------------------*/
 
 function handleProfileEditSubmit({ title, description }) {
-  profileUserInfo.setUserInfo({ title, description });
-  profileEditModal.close();
+  api.updateProfileInfo({ title, description }).then((res) => {
+    profileUserInfo.setUserInfo({ title, description });
+    profileEditModal.close();
+  });
 }
 
 /*------------------------------------------------------------------*/

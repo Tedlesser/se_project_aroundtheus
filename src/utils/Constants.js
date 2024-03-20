@@ -53,7 +53,10 @@ export const modalCaption = cardImageModal.querySelector(".image__caption");
   
 export const cardTemplate =
     document.querySelector("#card-template").content.firstElementChild;
-  
+export const deleteModal = document.querySelector("#delete-card-modal")  
+
+
+
   // Validation activation
 export const validationSettings = {
     modalForm: ".modal__form",

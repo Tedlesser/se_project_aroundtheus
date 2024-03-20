@@ -2,8 +2,7 @@ import Card from "./Card";
 
 export default class Api {
   constructor({ baseUrl, headers }) {
-    this._baseUrl = baseUrl, 
-    this._headers = headers;
+    (this._baseUrl = baseUrl), (this._headers = headers);
   }
 
   _checkServerResponse(res) {
@@ -21,12 +20,12 @@ export default class Api {
     }).then(this._checkServerResponse);
   }
 
-  createCards({ title, link }) {
+  createCards({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
       method: "POST",
       body: JSON.stringify({
-        name: title,
+        name: name,
         link: link,
       }),
     }).then(this._checkServerResponse);
@@ -35,11 +34,11 @@ export default class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
-      header: this._headers,
+      headers: this._headers,
     }).then(this._checkServerResponse);
   }
 
-  deleteCards(id) {
+  deleteCards(cardId) {
     return fetch(`${baseUrl}/cards/${cardId}`, {
       headers: this._headers,
       method: "DELETE",
@@ -67,8 +66,8 @@ export default class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: title,
-        about: description,
+        name: "jack costeau",
+        about: "adventurer",
       }),
     }).then(this._checkServerResponse);
   }
