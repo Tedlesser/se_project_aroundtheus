@@ -34,13 +34,6 @@ const handleImageClick = ({ name, link }) => {
   popupImage.open({ name, link });
 };
 
-const deleteCardModal = new PopupWithConfirm({
-  popupSelector: "#delete-card-modal",
-  handleDeleteCard,
-});
-// set event listeners for delete card popup
-deleteCardModal.setEventListeners();
-
 const profileUserInfo = new UserInfo({
   nameSelector: ".profile__title",
   descriptionSelector: ".profile__description",
@@ -78,6 +71,13 @@ const addCardModal = new PopupWithForm({
   },
 });
 
+const deleteCardModal = new PopupWithConfirm(
+  "#delete-card-modal",
+  handleDeleteClick
+);
+// set event listeners for delete card popup
+deleteCardModal.setEventListeners();
+
 api.getInitialCards().then((res) => {
   console.log(res);
   cardSection.renderItems(res);
@@ -103,7 +103,7 @@ function createCard({ name, link }) {
     { name, link },
     "#card-template",
     handleImageClick,
-    handleDeleteCard
+    handleDeleteClick
   );
   const cardElement = card.getView();
   return cardElement;
@@ -126,14 +126,14 @@ function openEditCardModal() {
   addCardModal.open();
 }
 
-function handleDeleteCard(card) {
+function handleDeleteClick(card) {
   // open the delete card popup
   deleteCardModal.open();
   deleteCardModal.setSubmitCallback(() => {
     api
       .deleteCard(card.getId())
       .then(() => {
-        card._handleDeleteCard();
+        Card._handleDeleteCard();
         deleteCardModal.close();
       })
       .catch((err) => {

@@ -139,16 +139,16 @@
 
     <!-- Delete Card Popup -->
     <div class="modal" id="delete-card-modal">
-      <button class="modal-box__close-button" type="button">
-            <img
-              src="<%=require('./images/Close-icon.svg')%>"
-              alt="Close delete prompt"
-            />
-      </button>
-      <form class="modal__form" id="card-delete-modal" novalidate>
-      <h2 class="modal__title">Are you sure?</h2>
-      <button class="modal__button modal__submit-delete-button" type="submit">Yes</button>
-      </form>
+      <div class="modal__delete-container">
+        <button
+          class="modal__close"
+          type="submit"
+          id="delete-card-button"
+        ></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <button class="modal__button modal__submit-delete-button" type="submit">
+          Yes
+        </button>
       </div>
     </div>
 
