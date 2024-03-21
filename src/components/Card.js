@@ -3,15 +3,22 @@ export default class Card {
     { name, link },
     cardSelector,
     handleImageClick,
-    handleDeleteClick
+    handleDeleteClick,
+    _id
   ) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
-    this._cardEl = null; // Initialize _cardEl to null
     this._handleDeleteClick = handleDeleteClick;
+    this.id = _id
+    this._cardEl = null; // Initialize _cardEl to null
   }
+
+  getId() {
+    return this.id
+  }
+
   _setEventListeners() {
     this._cardImageEl.addEventListener("click", () => {
       this._handleImageClick({ name: this._name, link: this._link });

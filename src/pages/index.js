@@ -17,6 +17,14 @@ const api = new Api({
   },
 });
 
+const profileUserInfo = new UserInfo({
+  nameSelector: ".profile__title",
+  descriptionSelector: ".profile__description",
+  avatarSelector: ".profile__image",
+});
+
+profileUserInfo.getUserInfo();
+
 const editFormValidator = new FormValidator(
   Constants.validationSettings,
   Constants.profileEditForm
@@ -33,14 +41,6 @@ const popupImage = new PopupWithImage({
 const handleImageClick = ({ name, link }) => {
   popupImage.open({ name, link });
 };
-
-const profileUserInfo = new UserInfo({
-  nameSelector: ".profile__title",
-  descriptionSelector: ".profile__description",
-  avatarSelector: ".profile__image",
-});
-
-profileUserInfo.getUserInfo();
 
 const profileEditModal = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
@@ -64,7 +64,7 @@ const addCardModal = new PopupWithForm({
   handleFormSubmit: (data) => {
     console.trace(data);
     api.createCards(data).then((res) => {
-      cardSection.addItem(createCard(data));
+      cardSection.addItem(createCard(res));
       Constants.cardEditForm.reset();
       addFormValidator.resetValidation();
     });
@@ -77,6 +77,15 @@ const deleteCardModal = new PopupWithConfirm(
 );
 // set event listeners for delete card popup
 deleteCardModal.setEventListeners();
+
+const editAvatarModal = new PopupWithForm(
+  {
+    popupSelector: "#profile-image-modal",
+  },
+  handleAvatarFormSubmit
+);
+
+editAvatarModal.setEventListeners();
 
 api.getInitialCards().then((res) => {
   console.log(res);
@@ -98,12 +107,13 @@ popupImage.setEventListeners();
 profileEditModal.setEventListeners();
 addCardModal.setEventListeners();
 
-function createCard({ name, link }) {
+function createCard({ name, link, _id }) {
   const card = new Card(
     { name, link },
     "#card-template",
     handleImageClick,
-    handleDeleteClick
+    handleDeleteClick,
+    _id
   );
   const cardElement = card.getView();
   return cardElement;
@@ -128,18 +138,31 @@ function openEditCardModal() {
 
 function handleDeleteClick(card) {
   // open the delete card popup
+  console.log(card);
   deleteCardModal.open();
   deleteCardModal.setSubmitCallback(() => {
     api
       .deleteCard(card.getId())
       .then(() => {
-        Card._handleDeleteCard();
+        card._handleDeleteCard();
         deleteCardModal.close();
       })
       .catch((err) => {
         console.error(err);
       });
   });
+}
+
+function handleAvatarFormSubmit(data) {
+  api
+    .updateProfileImage(data)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  editAvatarModal.close();
 }
 
 /*------------------------------------------------------------------*/

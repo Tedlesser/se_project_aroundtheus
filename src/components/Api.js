@@ -61,7 +61,7 @@ export default class Api {
     }).then(this._checkServerResponse);
   }
 
-  updateProfileInfo({ title, description }) {
+  updateProfileInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
