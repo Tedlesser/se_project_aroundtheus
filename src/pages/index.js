@@ -79,10 +79,8 @@ const deleteCardModal = new PopupWithConfirm(
 deleteCardModal.setEventListeners();
 
 const editAvatarModal = new PopupWithForm(
-  {
-    popupSelector: "#profile-image-modal",
-  },
-  handleAvatarFormSubmit
+  {popupSelector: "#profile-image-modal",},
+  handleAvatarFormSubmit,
 );
 
 editAvatarModal.setEventListeners();
@@ -113,7 +111,7 @@ function createCard({ name, link, _id }) {
     "#card-template",
     handleImageClick,
     handleDeleteClick,
-    _id
+    _id,
   );
   const cardElement = card.getView();
   return cardElement;
@@ -157,7 +155,7 @@ function handleAvatarFormSubmit(data) {
   api
     .updateProfileImage(data)
     .then((res) => {
-      userInfo.setUserInfo(res);
+      userInfo.setUserAvatar(res.link);
     })
     .catch((err) => {
       console.error(err);

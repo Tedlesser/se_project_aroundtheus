@@ -38,8 +38,8 @@ export default class Api {
     }).then(this._checkServerResponse);
   }
 
-  deleteCards(cardId) {
-    return fetch(`${baseUrl}/cards/${cardId}`, {
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       headers: this._headers,
       method: "DELETE",
     }).then(this._checkServerResponse);
@@ -66,7 +66,7 @@ export default class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: "jack costeau",
+        name: "jacques costeau",
         about: "adventurer",
       }),
     }).then(this._checkServerResponse);
@@ -77,7 +77,7 @@ export default class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        image: link,
+        link,
       }),
     }).then(this._checkServerResponse);
   }

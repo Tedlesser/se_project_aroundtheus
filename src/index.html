@@ -18,11 +18,17 @@
       </header>
       <main class="content">
         <section class="profile page__section">
+          <div class="profile__image-container">
           <img
-            src="<%= require('./images/jacques-cousteau.jpg')%>"
+            src="#"
             alt="avatar"
             class="profile__image"
           />
+          <button class="profile__image-edit-icon" 
+               type ="button"
+               aria-label="edit" >
+          </button>
+          </div>
           <div class="profile__info">
             <h3 class="profile__title">Jacques Cousteau</h3>
             <button
@@ -124,6 +130,7 @@
         </form>
       </div>
     </div>
+
     <!-- Preview Profile Image -->
     <div class="modal" id="profile-image-modal">
       <div class="modal__container">
