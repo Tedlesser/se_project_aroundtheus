@@ -26,7 +26,8 @@
           />
           <button class="profile__image-edit-icon" 
                type ="button"
-               aria-label="edit" >
+               aria-label="edit" 
+               id ="profile-image-icon">
           </button>
           </div>
           <div class="profile__info">
@@ -136,7 +137,7 @@
       <div class="modal__container">
         <button class="modal__close" type="button"></button>
         <h3 class="modal__heading">Change Profile Picture</h3>
-        <form class="modal__form" name="avatar-form" novalidate>
+        <form class="modal__form" id ="profile-image-form" name="avatar-form" novalidate>
           <input
             type="url"
             name="avatar"
@@ -147,6 +148,7 @@
           />
           <span class="modal__error" id="avatar-link-error"></span>
           <button
+            id ="profile-image-submit"
             type="submit"
             class="modal__button modal__button_disabled"
             aria-label="save"

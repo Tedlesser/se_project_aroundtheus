@@ -34,6 +34,12 @@ const addFormValidator = new FormValidator(
   Constants.cardEditForm
 );
 
+// const validateAvatarModal = new FormValidator(
+//   Constants.validationSettings,
+//   Constants.profileImageForm,
+// );
+
+
 const popupImage = new PopupWithImage({
   popupSelector: "#card-image-modal",
 });
@@ -79,8 +85,8 @@ const deleteCardModal = new PopupWithConfirm(
 deleteCardModal.setEventListeners();
 
 const editAvatarModal = new PopupWithForm(
-  {popupSelector: "#profile-image-modal",},
-  handleAvatarFormSubmit,
+  {popupSelector:"#profile-image-modal"},
+  handleAvatarFormSubmit
 );
 
 editAvatarModal.setEventListeners();
@@ -101,6 +107,7 @@ api
 
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
+// validateAvatarModal.enableValidation();
 popupImage.setEventListeners();
 profileEditModal.setEventListeners();
 addCardModal.setEventListeners();
@@ -111,7 +118,7 @@ function createCard({ name, link, _id }) {
     "#card-template",
     handleImageClick,
     handleDeleteClick,
-    _id,
+    _id
   );
   const cardElement = card.getView();
   return cardElement;
@@ -134,6 +141,11 @@ function openEditCardModal() {
   addCardModal.open();
 }
 
+function openProfileImageModal() {
+  editAvatarModal.open();
+  // validateAvatarModal.toggleSubmitButton();
+}
+
 function handleDeleteClick(card) {
   // open the delete card popup
   console.log(card);
@@ -143,11 +155,11 @@ function handleDeleteClick(card) {
       .deleteCard(card.getId())
       .then(() => {
         card._handleDeleteCard();
-        deleteCardModal.close();
       })
       .catch((err) => {
         console.error(err);
       });
+      deleteCardModal.close();
   });
 }
 
@@ -155,7 +167,7 @@ function handleAvatarFormSubmit(data) {
   api
     .updateProfileImage(data)
     .then((res) => {
-      userInfo.setUserAvatar(res.link);
+      userInfo.setUserAvatar(data);
     })
     .catch((err) => {
       console.error(err);
@@ -181,3 +193,7 @@ function handleProfileEditSubmit({ title, description }) {
 Constants.profileEditBtn.addEventListener("click", openEditProfileModal);
 
 Constants.cardAddBtn.addEventListener("click", openEditCardModal);
+
+Constants.profileImage.addEventListener("click", openProfileImageModal);
+
+// Constants.profileSubmit.addEventListener("click", );
