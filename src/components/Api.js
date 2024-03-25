@@ -2,7 +2,8 @@ import Card from "./Card";
 
 export default class Api {
   constructor({ baseUrl, headers }) {
-    (this._baseUrl = baseUrl), (this._headers = headers);
+    (this._baseUrl = baseUrl), 
+    (this._headers = headers);
   }
 
   _checkServerResponse(res) {
@@ -72,13 +73,12 @@ export default class Api {
     }).then(this._checkServerResponse);
   }
 
-  updateProfileImage({ link }) {
+  updateAvatar (link) {
+    console.log(this._baseUrl);
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({
-        link,
-      }),
+      body: JSON.stringify({avatar: link}),
     }).then(this._checkServerResponse);
   }
 
