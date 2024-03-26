@@ -108,9 +108,11 @@ const addCardModal = new PopupWithForm({
 addCardModal.setEventListeners();
 
 const editAvatarModal = new PopupWithForm(
-  { popupSelector: "#profile-image-modal" },
-  handleAvatarFormSubmit
-);
+  { popupSelector: "#profile-image-modal" ,
+  handleFormSubmit: (data) => {
+  handleAvatarFormSubmit(data);
+     }
+  });
 
 editAvatarModal.setEventListeners();
 
@@ -245,6 +247,6 @@ Constants.cardAddBtn.addEventListener("click", openEditCardModal);
 
 Constants.profileImage.addEventListener("click", openProfileImageModal);
 
-document
-  .querySelector("#profile-image-form")
-  .addEventListener("submit", handleAvatarFormSubmit); // handleAvatarFormSubmit
+// document
+  // .querySelector("#profile-image-form")
+  // .addEventListener("submit", handleAvatarFormSubmit); // handleAvatarFormSubmit
