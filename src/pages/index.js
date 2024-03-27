@@ -54,9 +54,9 @@ addFormValidator.enableValidation();
 const validateAvatarModal = new FormValidator(
   Constants.validationSettings,
   Constants.profileImageForm
-); 
+);
 
-console.log(Constants.profileImageForm)
+console.log(Constants.profileImageForm);
 
 validateAvatarModal.enableValidation();
 
@@ -107,12 +107,12 @@ const addCardModal = new PopupWithForm({
 
 addCardModal.setEventListeners();
 
-const editAvatarModal = new PopupWithForm(
-  { popupSelector: "#profile-image-modal" ,
+const editAvatarModal = new PopupWithForm({
+  popupSelector: "#profile-image-modal",
   handleFormSubmit: (data) => {
-  handleAvatarFormSubmit(data);
-     }
-  });
+    handleAvatarFormSubmit(data);
+  },
+});
 
 editAvatarModal.setEventListeners();
 
@@ -138,7 +138,6 @@ api
     profileUserInfo.setUserInfo({
       title: res.name,
       description: res.about,
-      avatar: res.avatar,
     });
     profileUserInfo.setUserAvatar(res.avatar);
   })
@@ -152,8 +151,8 @@ function createCard({ name, link, _id }) {
     "#card-template",
     handleImageClick,
     handleDeleteClick,
-    _id, 
-    handleLikeButton,
+    _id,
+    handleLikeButton
   );
   const cardElement = card.getView();
   return cardElement;
@@ -213,7 +212,7 @@ function handleAvatarFormSubmit(link) {
   api
     .updateAvatar(link)
     .then((data) => {
-      userInfo.setUserAvatar(data.avatar);
+      profileUserInfo.setUserAvatar(data.avatar);
       editAvatarModal.close();
     })
     .catch((err) => {
@@ -248,5 +247,5 @@ Constants.cardAddBtn.addEventListener("click", openEditCardModal);
 Constants.profileImage.addEventListener("click", openProfileImageModal);
 
 // document
-  // .querySelector("#profile-image-form")
-  // .addEventListener("submit", handleAvatarFormSubmit); // handleAvatarFormSubmit
+// .querySelector("#profile-image-form")
+// .addEventListener("submit", handleAvatarFormSubmit); // handleAvatarFormSubmit
