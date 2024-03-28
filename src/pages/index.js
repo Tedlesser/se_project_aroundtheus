@@ -153,14 +153,14 @@ api
 
 function createCard({ name, link, isLiked, _id }) {
   const card = new Card(
-    { name, link},
+    { name, link },
     "#card-template",
     handleImageClick,
     handleDeleteClick,
     removeLikeCard,
     likeCard,
     _id,
-    isLiked 
+    isLiked
   );
   const cardElement = card.getView();
   return cardElement;
@@ -171,12 +171,16 @@ function createCard({ name, link, isLiked, _id }) {
 /*------------------------------------------------------------------*/
 
 function openEditProfileModal() {
-  api.updateProfileInfo().then((res) => {
-    profileEditModal.open();
-    const currentUserInfo = profileUserInfo.getUserInfo();
-    Constants.profileTitleInput.value = currentUserInfo.name;
-    Constants.profileDescriptionInput.value = currentUserInfo.description;
-  });
+  addCardModal.setLoading(true);
+  api
+    .updateProfileInfo()
+    .then((res) => {
+      profileEditModal.open();
+      const currentUserInfo = profileUserInfo.getUserInfo();
+      Constants.profileTitleInput.value = currentUserInfo.name;
+      Constants.profileDescriptionInput.value = currentUserInfo.description;
+    })
+    .finally(() => addCardModal.setLoading(false));
 }
 
 function openEditCardModal() {
@@ -202,14 +206,7 @@ function handleProfileEditSubmit({ title, description }) {
     .finally(() => editAvatarModal.setLoading(false));
 }
 
-// function handleLikeClick(card) {
-//   api
-//     .likeCard(card.getId(), card.isLiked)
-//     .then((res) => card.toggleLikeCard(res.isLiked))
-//     .catch(console.error);
-// }
-
-function likeCard(card){
+function likeCard(card) {
   api
     .likeCard(card.getId())
     .then(() => {
@@ -274,7 +271,3 @@ Constants.profileEditBtn.addEventListener("click", openEditProfileModal);
 Constants.cardAddBtn.addEventListener("click", openEditCardModal);
 
 Constants.profileImage.addEventListener("click", openProfileImageModal);
-
-// document
-// .querySelector("#profile-image-form")
-// .addEventListener("submit", handleAvatarFormSubmit); // handleAvatarFormSubmit
