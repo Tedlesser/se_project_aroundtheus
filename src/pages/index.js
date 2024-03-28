@@ -56,8 +56,6 @@ const validateAvatarModal = new FormValidator(
   Constants.profileImageForm
 );
 
-console.log(Constants.profileImageForm);
-
 validateAvatarModal.enableValidation();
 
 /*------------------------------------------------------------------*/
@@ -127,10 +125,14 @@ const deleteCardModal = new PopupWithConfirm(
 
 deleteCardModal.setEventListeners();
 
-api.getInitialCards().then((res) => {
-  console.log(res);
-  cardSection.renderItems(res);
-});
+api
+  .getInitialCards()
+  .then((res) => {
+    cardSection.renderItems(res);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 api
   .getUserInfo(profileUserInfo._name, profileUserInfo._description)
@@ -145,14 +147,20 @@ api
     console.error(err);
   });
 
-function createCard({ name, link, _id }) {
+/*------------------------------------------------------------------*/
+/*                             Card                                 */
+/*------------------------------------------------------------------*/
+
+function createCard({ name, link, isLiked, _id }) {
   const card = new Card(
     { name, link },
     "#card-template",
     handleImageClick,
     handleDeleteClick,
+    CardLike,
+    RemoveCardLike,
     _id,
-    handleLikeButton
+    isLiked
   );
   const cardElement = card.getView();
   return cardElement;
@@ -184,15 +192,40 @@ function openProfileImageModal() {
 /*------------------------------------------------------------------*/
 
 function handleProfileEditSubmit({ title, description }) {
-  api.updateProfileInfo({ title, description }).then((res) => {
-    profileUserInfo.setUserInfo({ title, description });
-    profileEditModal.close();
-  });
+  profileEditModal.setLoading(true);
+  api
+    .updateProfileInfo({ title, description })
+    .then((res) => {
+      profileUserInfo.setUserInfo({ title, description });
+      profileEditModal.close();
+    })
+    .finally(() => editAvatarModal.setLoading(false));
+}
+
+function CardLike(card) {
+  api
+    .likeCard(card.getId())
+    .then(() => {
+      card.handleLikeIcon();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function RemoveCardLike(card) {
+  api
+    .removelikeCard(card.getId())
+    .then(() => {
+      card.handleLikeIcon();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function handleDeleteClick(card) {
   // open the delete card popup
-  console.log(card);
   deleteCardModal.open();
   deleteCardModal.setSubmitCallback(() => {
     api
@@ -224,17 +257,6 @@ function handleAvatarFormSubmit(link) {
 const handleImageClick = ({ name, link }) => {
   popupImage.open({ name, link });
 };
-
-function handleLikeButton(card) {
-  api
-    .setLike(card._id, card.isLiked())
-    .then((res) => {
-      card.handleLikeIcon(res);
-    })
-    .catch((err) => {
-      alert(`Error! ${err}`);
-    });
-}
 
 /*------------------------------------------------------------------*/
 /*                          Event Listeners                          */

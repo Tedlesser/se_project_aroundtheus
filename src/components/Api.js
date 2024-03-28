@@ -49,7 +49,6 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-      body: JSON.stringify(card),
     }).then(this._checkServerResponse);
   }
 
@@ -57,7 +56,6 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-      body: JSON.stringify(card),
     }).then(this._checkServerResponse);
   }
 
@@ -81,6 +79,6 @@ export default class Api {
   }
 
   loadPageContent() {
-    return Promise.all([this.loadUserInfo(), this.getInitialCards()]);
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
   }
 }

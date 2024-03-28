@@ -18,6 +18,14 @@ export default class PopupWithConfirm extends Popup {
     });
   }
 
+  setLoading(loading) {
+    if (loading) {
+      this._submitButton.textContent = "Saving...";
+    } else {
+      this._submitButton.textContent = "Save";
+    }
+  }
+
   // set submit callback
   setSubmitCallback(handleFormSubmit) {
     // set submit handler
