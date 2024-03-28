@@ -31,6 +31,7 @@ export const initialCards = [
   /*------------------------------------------------------------------*/
 export const profileEditBtn = document.querySelector("#profile-edit-button");
 export const profileEditModal = document.querySelector("#profile-edit-modal");
+export const profileImageModal = document.querySelector("#profile-image-modal");
 export const profileCloseBtn = document.querySelector("#profile-close-button");
 export const profileTitle = document.querySelector(".profile__title");
 export const profileDescription = document.querySelector(".profile__description");
@@ -39,6 +40,7 @@ export const profileDescriptionInput = document.querySelector(
     "#profile-description-input"
   );
 export const profileEditForm = profileEditModal.querySelector(".modal__form");
+export const profileImageForm = profileImageModal.querySelector(".modal__form"); // it created for fun again
   
 export const cardListEl = document.querySelector(".cards__list");
 export const cardAddBtn = document.querySelector(".card__add-button");
@@ -53,7 +55,10 @@ export const modalCaption = cardImageModal.querySelector(".image__caption");
   
 export const cardTemplate =
     document.querySelector("#card-template").content.firstElementChild;
-  
+export const deleteModal = document.querySelector("#delete-card-modal")  
+export const profileImage = document.querySelector("#profile-image-icon")
+export const profileSubmit = document.querySelector("#profile-image-submit"); // it exists for fun =)
+
   // Validation activation
 export const validationSettings = {
     modalForm: ".modal__form",

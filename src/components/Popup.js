@@ -1,5 +1,6 @@
 export default class Popup {
   constructor({ popupSelector }) {
+    console.log(popupSelector)
     this._popupElement = document.querySelector(popupSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
     this._closeBtn = this._popupElement.querySelector(".modal__close");
@@ -20,7 +21,6 @@ export default class Popup {
   }
 
   _handleEscClose(event) {
-    console.log(event)
     if (event.key === "Escape") {
       this.close();
       }

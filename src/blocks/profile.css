@@ -6,6 +6,36 @@
   color: #fff;
 }
 
+.profile__image {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-position: center;
+  margin: 0 29px 0 0;
+}
+
+.profile__image-edit-icon {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.8) url(../images/profile-edit-icon.svg) center
+    no-repeat;
+  width: 120px;
+  height: 120px;
+  left: 0%;
+  top: 21.5%;
+  border: none;
+  border-radius: 50%;
+  opacity: 0%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profile__image-edit-icon:hover {
+  opacity: 100%;
+  cursor: pointer;
+}
+
 .profile__info {
   display: grid;
   grid-template-areas:
@@ -57,15 +87,6 @@
   white-space: nowrap;
   max-width: 373px;
   overflow: hidden;
-}
-
-.profile__image {
-  height: 120px;
-  width: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  background-position: center;
-  margin: 0 29px 0 0;
 }
 
 @media screen and (max-width: 775px) {
