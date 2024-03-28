@@ -52,7 +52,7 @@ export default class Api {
     }).then(this._checkServerResponse);
   }
 
-  removelikeCard(cardId) {
+  removeLikeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,

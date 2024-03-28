@@ -4,23 +4,21 @@ export default class Card {
     cardSelector,
     handleImageClick,
     handleDeleteClick,
-    handleLikeButton,
+    removeLikeCard,
+    likeCard,
     _id,
-    isLiked,
-    CardLike,
-    RemoveCardLike
+    isLiked
   ) {
     this._name = name;
     this._link = link;
-    this._cardEl = null; // Initialize _cardEl to null
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteClick = handleDeleteClick;
-    this._handleLikeButton = handleLikeButton;
+    this._removeLikeCard = removeLikeCard;
+    this._likeCard = likeCard;
     this.id = _id;
     this._isLiked = isLiked;
-    this._CardLike = CardLike;
-    this._RemoveCardLike = RemoveCardLike;
+    this._cardEl = null; // Initialize _cardEl to null
   }
 
   getId() {
@@ -36,22 +34,10 @@ export default class Card {
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
         if (this._isLiked) {
-          this.RemoveCardLike(this);
+          this._removeLikeCard(this);
         } else {
-          this.CardLike(this);
+          this._likeCard(this);
         }
-      });
-    // this._cardEl
-    //   .querySelector(".card__like-button")
-    //   .addEventListener("click", () => {
-    //     this._handleLikeIcon(),
-    //     this._isLiked = !this._isLiked
-    //   });
-
-    this._cardEl
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._handleLikeButton();
       });
 
     this._cardEl
@@ -61,24 +47,15 @@ export default class Card {
       });
   }
 
-  // _handleLikeIcon() {
-  //   // Remove semicolon here
-  //   this._cardEl
-  //     .querySelector(".card__like-button")
-  //     .classList.toggle("card__like-button_active"); // Remove dot before class name
-  // }
-
   _handleLikeIcon(isLiked) {
-    this.isLiked = isLiked;
-    this.renderLikes();
+    this._isLiked = !this._isLiked;
+    this.renderLikeCard();
   }
 
-  renderLikes() {
-    if (this.isLiked) {
-      this._likeButton.classList.add("card__like-button_active");
-    } else {
-      this._likeButton.classList.remove("card__like-button_active");
-    }
+  renderLikeCard() {
+    this._isLiked
+      ? this._likeButton.classList.add("card__like-button_active")
+      : this._likeButton.classList.remove("card__like-button_active");
   }
 
   _handleDeleteCard() {
@@ -102,7 +79,7 @@ export default class Card {
     // For example:
     // Set event listeners
 
-    this.renderLikes();
+    this.renderLikeCard();
     this._setEventListeners();
     return this._cardEl; // Return this._cardEl instead of cardEl
   }

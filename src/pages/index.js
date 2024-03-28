@@ -153,14 +153,14 @@ api
 
 function createCard({ name, link, isLiked, _id }) {
   const card = new Card(
-    { name, link },
+    { name, link},
     "#card-template",
     handleImageClick,
     handleDeleteClick,
-    CardLike,
-    RemoveCardLike,
+    removeLikeCard,
+    likeCard,
     _id,
-    isLiked
+    isLiked 
   );
   const cardElement = card.getView();
   return cardElement;
@@ -202,22 +202,29 @@ function handleProfileEditSubmit({ title, description }) {
     .finally(() => editAvatarModal.setLoading(false));
 }
 
-function CardLike(card) {
+// function handleLikeClick(card) {
+//   api
+//     .likeCard(card.getId(), card.isLiked)
+//     .then((res) => card.toggleLikeCard(res.isLiked))
+//     .catch(console.error);
+// }
+
+function likeCard(card){
   api
     .likeCard(card.getId())
     .then(() => {
-      card.handleLikeIcon();
+      card._handleLikeIcon();
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-function RemoveCardLike(card) {
+function removeLikeCard(card) {
   api
-    .removelikeCard(card.getId())
+    .removeLikeCard(card.getId())
     .then(() => {
-      card.handleLikeIcon();
+      card._handleLikeIcon();
     })
     .catch((err) => {
       console.log(err);
